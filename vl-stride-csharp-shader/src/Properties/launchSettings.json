@@ -1,0 +1,10 @@
+﻿{
+  "profiles": {
+    "dev/antokhio": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Program Files\\vvvv\\vvvv_gamma_7.2-win-x64\\vvvv.exe",
+      "commandLineArgs": "",
+      "workingDirectory": "$(ProjectDir)"
+    }
+  }
+}
