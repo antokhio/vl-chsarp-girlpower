@@ -1,0 +1,10 @@
+﻿shader MyShaderBase 
+{
+
+    struct MyStruct 
+    {
+        float Test;
+    };
+
+    stage MyStruct MyStructInput;
+};
