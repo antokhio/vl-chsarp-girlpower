@@ -20,7 +20,7 @@ namespace VL.DynamicShader
         private IVLPin<Matrix> _world = new MatrixPin();
         private CustomDrawEffect _effect;
 
-        // Constructor takes NodeContext and locate nescessary services.
+        // Constructor takes NodeContext and locates necessary services.
         public DynamicDrawShader(NodeContext nodeContext)
         {
             var appHost = nodeContext.AppHost;

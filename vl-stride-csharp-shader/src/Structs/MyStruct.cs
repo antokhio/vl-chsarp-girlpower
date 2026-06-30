@@ -2,7 +2,7 @@
 
 namespace VL.DynamicShader.Structs
 {
-    [StructLayout(LayoutKind.Sequential, Pack = 4)]
+    [StructLayout(LayoutKind.Sequential)]
     public struct MyStruct
     {
 

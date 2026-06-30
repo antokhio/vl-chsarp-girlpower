@@ -1,17 +1,18 @@
-# vl-stride-csharp-shader (WIP)
+# vl-stride-csharp-shader (PoC)
 
-Shows how to run an manage your custom shader from C# using `VL.Stride.Runtime`.
+Shows how to run and manage your custom shader from C# using `VL.Stride.Runtime`.
 
-The problem: 
+### The Problem 
 
-To create shaders e.g. nodes, VL usese some sort of mechanics that is bound to vl patch. E.g. shaders are discovered, compiled and nodes assembled before dependencies `dll`s are resolved.
-As a result if you want a custom struct as an shader input, it's impossible unless you customize `VL.StandartLibs`, however using c# and `ProcessNode` attribute we can create and manage our own shader node, moreover this method also allows to compile shaders at runtime dynamically from chunks e.g. mixins.
+By default, VL compiles shaders before resolving .dll dependencies. This means you can't use custom structs as shader inputs without modifying VL.StandardLibs.
 
-This example shows how to setup minimal pipeline to get access to dynamic shader compilation.
+However, by using C# and the ProcessNode attribute, we can bypass this to manage our own shader nodes. As a bonus, this approach lets us compile shaders dynamically at runtime from chunks (e.g., mixins).
+
+This example shows how to set up a minimal pipeline to get access to dynamic shader compilation.
 
 ### Setup
 
-First thing we are going to need is to make sure that `Stride Tools Visual Studio Extension` - `visix` works. For that we need to install:
+The first thing we need to do is make sure that the `Stride Tools Visual Studio Extension` (.vsix) works. For that, we need to install the following package:
 
 ```xml
 <ItemGroup>
@@ -21,6 +22,7 @@ First thing we are going to need is to make sure that `Stride Tools Visual Studi
     IncludeAssets="build;buildTransitive"
     />
 </ItemGroup>
+
 ```
 
 And create an `.sdpkg` file:
@@ -35,7 +37,7 @@ Meta:
     Owners: []
     Dependencies: null
 AssetFolders:
-    -   Path: !dir Shaders # path where shaders are stored in c# project
+    -   Path: !dir Shaders # path where shaders are stored in the C# project
 ResourceFolders:
     - !dir Resources
 OutputGroupDirectories: {}
@@ -43,62 +45,72 @@ ExplicitFolders: []
 Bundles: []
 TemplateFolders: []
 RootAssets: []
+
 ```
 
-### Instruction
+### Instructions
 
-So here you should be able to create `Shaders` subfolder in you `csproj` and if you create something like `Test.sdls` (Add class new `Test.sdsl`) you should see it creates an sdsl file with some c# code and a `Test.sdsl.cs` c# file.
+You should now be able to create a `Shaders` subfolder in your `.csproj`. If you create something like `Test.sdsl` (Add class -> new `Test.sdsl`), it should automatically generate an `.sdsl` file with some HLSL code and a corresponding `Test.sdsl.cs` C# file.
 
-You can change sdsl code to something like this:
+You can change the `.sdsl` code to something like this:
+
 ```hlsl
 shader Test {
 };
+
 ```
 
-The next, step is something i would call a `voodoo mumbling`:
+The next step involves a bit of "voodoo mumbling":
 
-* Stride expects shaders to be picked up by asset compiler.
-* VL already bundles shaders if they are in the `shaders` subfolder.
+* Stride expects shaders to be picked up by the asset compiler.
+* VL automatically bundles shaders if they are located in a `shaders` subfolder.
 
-Knowing this we can kinda `hack` in to this system, basicaly we will give vl our shaders, so it can discover them, but we will call a compile on them our self. 
+Knowing this, we can hack into the system. Basically, we will expose our shaders to VL so it can discover them, but we will call the compilation on them ourselves.
 
-For that we need to add a post build action, so if you have project structure:
+To achieve this, we need to add a post-build action. Assuming you have the following project structure:
 
 ```sh
 src/projectFile.cs
-src/Shaders // folder for shaders ins 
-shaders // the folder we are going to copy shaders to
+src/Shaders # folder for shaders inside the C# project 
+shaders # the folder we are going to copy shaders to
 project.vl
 
 ```
 
-So we need to create an post build task:
+We need to create a post-build task in the `.csproj`:
 
 ```xml
-<!-- Copy effects to ../shader on build -->
-<Target Name="CopyShaders" AfterTargets="Build">
-    <ItemGroup>
-        <EffectsFiles Include="Shaders\**\*.sdsl" />
-    </ItemGroup>
+  <ItemGroup>
+    <EffectsFiles Include="Shaders\**\*.sdsl" />
+    <UpToDateCheckInput Include="@(EffectsFiles)" />
+  </ItemGroup>
+
+  <Target Name="CopyShaders" AfterTargets="Build"
+          Inputs="@(EffectsFiles)"
+          Outputs="@(EffectsFiles->'..\shaders\%(RecursiveDir)%(Filename)%(Extension)')">
+
     <Copy SourceFiles="@(EffectsFiles)" DestinationFolder="..\shaders\%(RecursiveDir)" />
-</Target>
+  </Target>
 ```
 
-I you did everything correct the `shaders` folder in root should include our `Test.sdsl`.
+If you did everything correctly, the `shaders` folder in the root directory should now include our `Test.sdsl`.
 
-For next step we are going start by adding `ProcessNode` support to our project:
-```
+For the next step, we will start by adding `ProcessNode` support to our project:
+
+```text
 VL.DynamicShader -> Add Folder -> "Properties"
 "Properties" -> New Item -> AssemblyInfo.cs
-```
 
 ```
+
+```csharp
 using VL.Core.Import;
 
 [assembly: ImportAsIs(Category = "DynamicShader", Namespace = "VL.DynamicShader")]
+
 ```
 
-Now let's define our data type that we will be transfering to our shader:
+Now let's define the data type we will be transferring to our shader:
 
 ```csharp
 // Structs/MyStruct.cs
@@ -116,16 +128,16 @@ namespace VL.DynamicShader.Structs
         }
     }
 }
+
 ```
 
-Now let's define `MyShaderBase.sdsl`
+Next, let's define `MyShaderBase.sdsl`:
 
 ```cs
 // Shaders/MyShaderBase.sdsl
 
 shader MyShaderBase 
 {
-
     struct MyStruct 
     {
         float Test;
@@ -136,19 +148,34 @@ shader MyShaderBase
 
 ```
 
-After that we need to check the `Shaders/MyShaderBase.sdsl.cs` file. Notice line that mentions `MyStruct` is errored. That because stride expects structs to be in certain namespace, to fix that we need to modify `csproj` to make our struct namespace globally avalible on project level:
+After doing this, check the `Shaders/MyShaderBase.sdsl.cs` file. You will notice the line:
+
+```cs
+namespace Stride.Rendering
+{
+    public static partial class MyShaderBaseKeys
+    {
+        public static readonly ValueParameterKey<MyStruct> MyStructInput = ParameterKeys.NewValue<MyStruct>();
+    }
+}
+```
+
+This is something that stride generates, to support custom objects as shader inputs. Upon dll load stride will discover this declaration atomagically. Notice that `MyStruct` throws an error. This is because Stride expects structs to be in a certain namespace. To fix it, modify the `.csproj` to make our struct's namespace globally available at the project level:
 
 ```xml
 <ItemGroup>
   <Using Include="VL.DynamicShader.Structs" />
 </ItemGroup>
+
 ```
 
-Now if we check `Shaders/MyShaderBase.sdsl.cs` again we should see it has no erros anymore.
+If you check `Shaders/MyShaderBase.sdsl.cs` again, there should be no more errors.
 
-Next step we are going to define our Draw shader. So:
-```
+Now, we are going to define our Draw shader:
+
+```text
 Shaders -> Add Item -> MyDraw_DrawFX.sdsl
+
 ```
 
 ```csharp
@@ -166,42 +193,47 @@ shader MyDraw_DrawFX : VS_PS_Base, MyShaderBase
         streams.ColorTarget = float4(myInput, 1.0, 0.0, 1.0);
     }
 };
+
 ```
 
-So it is time to add `launchSettings.json` so we can start our project in debug.
-```
+It is time to add `launchSettings.json` so we can launch our project in debug mode:
+
+```text
 Properties -> Add Item -> launchSettings.json
-```
 
 ```
+
+```json
 {
   "profiles": {
     "dev/antokhio": {
       "commandName": "Executable",
-      "executablePath": "C:\\Program Files\\vvvv\\vvvv_gamma_7.3-win-x64\\vvvv.exe",
+      "executablePath": "C:\\\\Program Files\\\\vvvv\\\\vvvv_gamma_7.3-win-x64\\\\vvvv.exe",
       "commandLineArgs": "",
       "workingDirectory": "$(ProjectDir)"
-    },   
+    }
   }
 }
-```
 
 ```
+
+```text
 Start vvvv
 New patch > VL.DynamicShader
-Dependenices > VL Nugets > VL.Stride
+Dependencies > VL Nugets > VL.Stride
 Dependencies > File > Add Existing > lib > VL.DynamicShader.dll
+
 ```
 
-After you setup a patch, you should be able to add `MyStruct -> Create` and `MyDrawShader`
-However if you save and reload patch you will notice `MyDrawShader` will become red.
+After setting up the patch, you should be able to add `MyStruct -> Create` and `MyDrawShader`.
+However, if you save and reload the patch, you will notice `MyDrawShader` turns red.
 
-To fix that we are going to need to define a few stuff:
+To fix that, we need to define a few things:
 
-* `DynamicShaderService` - will be responsible for creating an `EffectInstance` 
-* `DynamicShaderNode` - an base `class / process node` that would manage effect for us and handle service.
+* `DynamicShaderService`: Responsible for creating an `EffectInstance`.
+* `DynamicShaderNode`: A base class/process node that will manage the effect for us and handle the service.
 
-So let's start with a `DynamicShaderService`:
+Let's start with `DynamicShaderService`:
 
 ```csharp
 using Microsoft.Extensions.DependencyInjection;
@@ -214,7 +246,7 @@ using VirtualFileSystem = Stride.Core.IO.VirtualFileSystem;
 
 namespace VL.DynamicShader
 {
-    // Interface we are going to locate service by.
+    // Interface we are going to locate the service by.
     public interface IDynamicShaderService
     {
         /// <summary>
@@ -225,7 +257,7 @@ namespace VL.DynamicShader
 
     public class DynamicShaderService : IDynamicShaderService
     {
-        // Segment of path where our generated shader cache will be stored.
+        // Segment of the path where our generated shader cache will be stored.
         const string SHADER_CACHE_PATH = "DynamicShaderCache";
 
         // Stride effect system.
@@ -279,13 +311,14 @@ namespace VL.DynamicShader
         }
     }
 }
+
 ```
 
-Ok, next we can jump on to how we are going to wrap our shader, for that we can use one of VL already provided classes [CustomDrawEffect](https://github.com/vvvv/VL.StandardLibs/blob/d0f888370873c5e132b63bb0172638a27e73784f/VL.Stride.Runtime/src/Rendering/Effects/CustomDrawEffect.cs)
+Next, we can jump into how we will wrap our shader. We can use one of VL's provided classes, `CustomDrawEffect`.
 
-So what we are going to do, is create a `wrapper` - `process node` that would hold instance of `CustomDrawEffect` and pass through parameters on it. 
+We are going to create a wrapper (a `process node`) that will hold an instance of `CustomDrawEffect` and pass parameters to it.
 
-So let's create our abstract dynamic draw shader base:
+Let's create our abstract dynamic draw shader base:
 
 ```csharp
 using Stride.Core.Mathematics;
@@ -298,7 +331,7 @@ namespace VL.DynamicShader
     [ProcessNode]
     public abstract class DynamicDrawShader : IEffect, IDisposable
     {
-        // Holds name of shader we are going to wrap
+        // Holds the name of the shader we are going to wrap
         protected abstract string ShaderName { get; }
 
         // Instance of shader service
@@ -308,17 +341,16 @@ namespace VL.DynamicShader
         // Used to pass world to _effect
         private IVLPin<Matrix> _world;
 
-        // Instance of effect
+        // Instance of the effect
         private CustomDrawEffect _effect;
 
         public DynamicDrawShader(NodeContext nodeContext)
         {
             var appHost = nodeContext.AppHost;
 
-            // This called a lazy initializable service, e.g. it would 
-            // be registered on first call here
+            // This is called a lazy initializable service, e.g., it will 
+            // be registered on the first call here
             _shaderService = appHost.Services.GetOrAddService<IDynamicShaderService>((_) => new DynamicShaderService(appHost));
-
 
             _renderContext = RenderContext.GetShared(
                appHost.Services.GetRequiredService<Game>().Services
@@ -330,14 +362,14 @@ namespace VL.DynamicShader
 
     private void Initialize() {}
 }   
+
 ```
 
-* `IEffect` - is an interface used to discover us as an shader instance [source](https://github.com/vvvv/VL.StandardLibs/blob/d0f888370873c5e132b63bb0172638a27e73784f/VL.Stride.Runtime/src/Rendering/Effects/IEffect.cs)
-* `IVLPin<Matrix>` - is an world pin on shader.
-* `CustomDrawEffect` - is an VL shader node container.
+* `IEffect`: Interface used to expose us as a shader instance.
+* `IVLPin<Matrix>`: A world pin on the shader.
+* `CustomDrawEffect`: A VL shader node container.
 
-
-Let's now fire of our buiseness logic now:
+Let's add our business logic now:
 
 ```csharp
 using Microsoft.Extensions.DependencyInjection;
@@ -354,10 +386,9 @@ namespace VL.DynamicShader
     [ProcessNode]
     public abstract class DynamicDrawShader : IEffect
     {
-
         // ...
 
-        // Initialize create new shader instance
+        // Initialize creates a new shader instance
         private void Initialize()
         {
             try
@@ -365,7 +396,7 @@ namespace VL.DynamicShader
                 // Initiate the shader effect instance using the shader service.
                 var effectInstance = _shaderService.InitiateEffect(ShaderName);
 
-                // Initialize effect for graphics device
+                // Initialize the effect for the graphics device
                 effectInstance.UpdateEffect(_renderContext.GraphicsDevice);
 
                 // Reuse VL.Stride's own DrawFX path: it handles PerFrame (Time),
@@ -383,10 +414,10 @@ namespace VL.DynamicShader
             }
         }
 
-        // This will be called by shader every draw
+        // This will be called by the shader on every draw
         public abstract void ApplyParameters(ParameterCollection parameters);
 
-        // Satisfies IEffect constraint
+        // Satisfies the IEffect constraint
         [Fragment(IsHidden = true)]
         public EffectInstance SetParameters(RenderView renderView, RenderDrawContext renderDrawContext)
         {
@@ -400,9 +431,10 @@ namespace VL.DynamicShader
         }        
     }
 }
+
 ```
 
-Allright one more thing we have to do is small utility wrapper, that would be a `World` pin on a shader, we will add it directly to our base calss and change `_world` to have an value:
+One more thing we have to do is create a small utility wrapper for a `World` pin on the shader. We will add it directly to our base class and assign a value to `_world`:
 
 ```csharp
 namespace VL.DynamicShader
@@ -433,9 +465,10 @@ namespace VL.DynamicShader
         }
     }
 }
+
 ```
 
-Next we are going to do my `MyDynamicDrawShader` so:
+Finally, we are going to build `MyDynamicDrawShader`:
 
 ```csharp
 using Stride.Rendering;
@@ -450,16 +483,16 @@ namespace VL.DynamicShader
         // Name of the shader we are going to use.
         protected override string ShaderName => "MyDraw_DrawFX";
 
-        // Place we are goint to store a struct
+        // Place where we are going to store a struct
         private MyStruct _myStruct = new MyStruct(1.0f);
 
-        // Set's our an input from upstream patch.
+        // Sets our input from the upstream patch.
         public void SetMyStructValue(MyStruct myStruct)
         {
             _myStruct = myStruct;
         }
 
-        // Constructor takes NodeContext and passes it to base class.
+        // Constructor takes NodeContext and passes it to the base class.
         public MyDynamicDrawShader([Pin(Visibility = Model.PinVisibility.Hidden)] NodeContext nodeContext) : base(nodeContext)
         {
         }
@@ -472,8 +505,8 @@ namespace VL.DynamicShader
         }
     }
 }
+
 ```
 
-So thats about it, whoala your shader effect: 
-
-![image](vl-stride-csharp-shader/assets/whoala.png)
+And that's about it, voilà, your shader effect:
+![whoala](/vl-stride-csharp-shader/assets/whoala.png)

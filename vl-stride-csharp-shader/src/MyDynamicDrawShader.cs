@@ -10,10 +10,10 @@ namespace VL.DynamicShader
         // Name of the shader we are going to use.
         protected override string ShaderName => "MyDraw_DrawFX";
 
-        // Place we are goint to store a struct
+        // Place we are going to store a struct
         private MyStruct _myStruct = new MyStruct(1.0f);
 
-        // Set's our an input from upstream patch.
+        // Sets our input from the upstream patch.
         public void SetMyStructValue(MyStruct myStruct)
         {
             _myStruct = myStruct;
