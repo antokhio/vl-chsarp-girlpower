@@ -80,17 +80,15 @@ project.vl
 We need to create a post-build task in the `.csproj`:
 
 ```xml
-  <ItemGroup>
-    <EffectsFiles Include="Shaders\**\*.sdsl" />
-    <UpToDateCheckInput Include="@(EffectsFiles)" />
-  </ItemGroup>
+    <ItemGroup>
+        <EffectsFiles Include="Shaders\**\*.sdsl" />
+        <UpToDateCheckInput Include="@(EffectsFiles)" />
+    </ItemGroup>
 
-  <Target Name="CopyShaders" AfterTargets="Build"
-          Inputs="@(EffectsFiles)"
-          Outputs="@(EffectsFiles->'..\shaders\%(RecursiveDir)%(Filename)%(Extension)')">
-
-    <Copy SourceFiles="@(EffectsFiles)" DestinationFolder="..\shaders\%(RecursiveDir)" />
-  </Target>
+    <Target Name="CopyShaders" AfterTargets="Build" BeforeTargets="PrepareForRun">
+        <RemoveDir Directories="..\shaders" />
+        <Copy SourceFiles="@(EffectsFiles)" DestinationFolder="..\shaders\%(RecursiveDir)" />
+    </Target>
 ```
 
 If you did everything correctly, the `shaders` folder in the root directory should now include our `Test.sdsl`.
@@ -242,7 +240,6 @@ using Stride.Rendering;
 using Stride.Shaders.Compiler;
 using System.Diagnostics;
 using VL.Core;
-using VirtualFileSystem = Stride.Core.IO.VirtualFileSystem;
 
 namespace VL.DynamicShader
 {
@@ -284,20 +281,6 @@ namespace VL.DynamicShader
 
             // Assign effect system
             _effectSystem = effectSystem;
-
-            // Create a shader cache directory
-            _cachePath = Path.Combine(Path.GetTempPath(), SHADER_CACHE_PATH);
-
-            // Mount the shader cache directory if not mounted already.
-            if (!VirtualFileSystem.DirectoryExists("/shaders/dynamic"))
-            {
-                Directory.CreateDirectory(_cachePath);
-                VirtualFileSystem.MountFileSystem("/shaders/dynamic", _cachePath);
-            }
-            else
-            {
-                Debug.WriteLine("Virtual FileSystem already mounted at /shaders/dynamic");
-            }
         }
 
         public EffectInstance InitiateEffect(string shaderName)

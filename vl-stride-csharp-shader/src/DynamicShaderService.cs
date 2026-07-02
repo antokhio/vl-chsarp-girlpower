@@ -2,9 +2,7 @@
 using Stride.Engine;
 using Stride.Rendering;
 using Stride.Shaders.Compiler;
-using System.Diagnostics;
 using VL.Core;
-using VirtualFileSystem = Stride.Core.IO.VirtualFileSystem;
 
 namespace VL.DynamicShader
 {
@@ -19,18 +17,12 @@ namespace VL.DynamicShader
 
     public class DynamicShaderService : IDynamicShaderService
     {
-        // Segment of path where our generated shader cache will be stored.
-        const string SHADER_CACHE_PATH = "DynamicShaderCache";
-
         // Stride effect system.
         private readonly EffectSystem _effectSystem;
 
-        // Path to the shader cache.
-        private readonly string _cachePath;
-
         public DynamicShaderService(AppHost appHost)
         {
-            // Get the game instance from the AppHost services. 
+            // Get the game instance from the AppHost services.
             var game = appHost.Services.GetService<Game>();
             if (game is null)
                 throw new InvalidOperationException(
@@ -46,28 +38,12 @@ namespace VL.DynamicShader
 
             // Assign effect system
             _effectSystem = effectSystem;
-
-            // Create a shader cache directory
-            _cachePath = Path.Combine(Path.GetTempPath(), SHADER_CACHE_PATH);
-
-            // Mount the shader cache directory if not mounted already.
-            if (!VirtualFileSystem.DirectoryExists("/shaders/dynamic"))
-            {
-                Directory.CreateDirectory(_cachePath);
-                VirtualFileSystem.MountFileSystem("/shaders/dynamic", _cachePath);
-            }
-            else
-            {
-                Debug.WriteLine("Virtual FileSystem already mounted at /shaders/dynamic");
-            }
         }
 
         public EffectInstance InitiateEffect(string shaderName)
         {
             var compilerParameters = new CompilerParameters();
-            var effectBytecode = _effectSystem
-                .LoadEffect(shaderName)
-                .WaitForResult();
+            var effectBytecode = _effectSystem.LoadEffect(shaderName).WaitForResult();
 
             return new EffectInstance(effectBytecode);
         }
