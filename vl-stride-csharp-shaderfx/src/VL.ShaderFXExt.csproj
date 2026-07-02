@@ -1,0 +1,54 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <BaseOutputPath>..\lib\</BaseOutputPath>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference
+            Include="Stride.Core.Assets.CompilerApp"
+            Version="$(StrideVersion)"
+            IncludeAssets="build;buildTransitive"
+        />
+        <PackageReference Include="VL.Stride.Runtime" Version="$(VLVersion)" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Using Include="VL.DynamicShader.Structs" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Update="Shaders\MyDraw_DrawFX.sdsl.cs">
+            <DesignTime>True</DesignTime>
+            <DesignTimeSharedInput>True</DesignTimeSharedInput>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>MyDraw_DrawFX.sdsl</DependentUpon>
+        </Compile>
+        <Compile Update="Shaders\MyShaderBase.sdsl.cs">
+            <DesignTime>True</DesignTime>
+            <DesignTimeSharedInput>True</DesignTimeSharedInput>
+            <AutoGen>True</AutoGen>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="Shaders\MyDraw_DrawFX.sdsl">
+            <LastGenOutput>MyDraw_DrawFX.sdsl.cs</LastGenOutput>
+        </None>
+        <None Update="Shaders\MyShaderBase.sdsl">
+            <LastGenOutput>MyShaderBase.sdsl.cs</LastGenOutput>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+        <EffectsFiles Include="Shaders\**\*.sdsl" />
+        <UpToDateCheckInput Include="@(EffectsFiles)" />
+    </ItemGroup>
+
+    <Target Name="CopyShaders" AfterTargets="Build" BeforeTargets="PrepareForRun">
+        <RemoveDir Directories="..\shaders" />
+        <Copy SourceFiles="@(EffectsFiles)" DestinationFolder="..\shaders\%(RecursiveDir)" />
+    </Target>
+</Project>
