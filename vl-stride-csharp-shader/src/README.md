@@ -255,14 +255,8 @@ namespace VL.DynamicShader
 
     public class DynamicShaderService : IDynamicShaderService
     {
-        // Segment of the path where our generated shader cache will be stored.
-        const string SHADER_CACHE_PATH = "DynamicShaderCache";
-
         // Stride effect system.
         private readonly EffectSystem _effectSystem;
-
-        // Path to the shader cache.
-        private readonly string _cachePath;
 
         public DynamicShaderService(AppHost appHost)
         {
@@ -282,20 +276,6 @@ namespace VL.DynamicShader
 
             // Assign effect system
             _effectSystem = effectSystem;
-
-            // Create a shader cache directory
-            _cachePath = Path.Combine(Path.GetTempPath(), SHADER_CACHE_PATH);
-
-            // Mount the shader cache directory if not mounted already.
-            if (!VirtualFileSystem.DirectoryExists("/shaders/dynamic"))
-            {
-                Directory.CreateDirectory(_cachePath);
-                VirtualFileSystem.MountFileSystem("/shaders/dynamic", _cachePath);
-            }
-            else
-            {
-                Debug.WriteLine("Virtual FileSystem already mounted at /shaders/dynamic");
-            }
         }
 
         public EffectInstance InitiateEffect(string shaderName)
