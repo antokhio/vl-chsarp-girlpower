@@ -9,4 +9,7 @@
     <File Path="vl-stride-csharp-shader/README.md" />
     <Project Path="vl-stride-csharp-shader/src/VL.DynamicShader.csproj" />
   </Folder>
+  <Folder Name="/vl-stride-csharp-shaderfx/">
+    <Project Path="vl-stride-csharp-shaderfx/src/VL.ShaderFXExt.csproj" />
+  </Folder>
 </Solution>

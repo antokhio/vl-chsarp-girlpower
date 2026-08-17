@@ -16,35 +16,26 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Using Include="VL.DynamicShader.Structs" />
+        <Using Include="VL.ShaderFXExt" />
     </ItemGroup>
 
     <ItemGroup>
-        <Compile Update="Shaders\MyDraw_DrawFX.sdsl.cs">
-            <DesignTime>True</DesignTime>
-            <DesignTimeSharedInput>True</DesignTimeSharedInput>
-            <AutoGen>True</AutoGen>
-            <DependentUpon>MyDraw_DrawFX.sdsl</DependentUpon>
-        </Compile>
-        <Compile Update="Shaders\MyShaderBase.sdsl.cs">
-            <DesignTime>True</DesignTime>
-            <DesignTimeSharedInput>True</DesignTimeSharedInput>
-            <AutoGen>True</AutoGen>
-        </Compile>
-    </ItemGroup>
-
-    <ItemGroup>
-        <None Update="Shaders\MyDraw_DrawFX.sdsl">
-            <LastGenOutput>MyDraw_DrawFX.sdsl.cs</LastGenOutput>
-        </None>
-        <None Update="Shaders\MyShaderBase.sdsl">
-            <LastGenOutput>MyShaderBase.sdsl.cs</LastGenOutput>
-        </None>
-    </ItemGroup>
-
-    <ItemGroup>
-        <EffectsFiles Include="Shaders\**\*.sdsl" />
+        <EffectsFiles Include="Effects\**\*.sdsl" />
         <UpToDateCheckInput Include="@(EffectsFiles)" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Update="Effects\MyColor_ShaderFX.sdsl.cs">
+            <DesignTime>True</DesignTime>
+            <DesignTimeSharedInput>True</DesignTimeSharedInput>
+            <AutoGen>True</AutoGen>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="Effects\MyColor_ShaderFX.sdsl">
+            <LastGenOutput>MyColor_ShaderFX.sdsl.cs</LastGenOutput>
+        </None>
     </ItemGroup>
 
     <Target Name="CopyShaders" AfterTargets="Build" BeforeTargets="PrepareForRun">
