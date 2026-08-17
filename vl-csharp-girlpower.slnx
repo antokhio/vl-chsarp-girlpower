@@ -5,6 +5,9 @@
     <File Path=".gitignore" />
     <File Path="Directory.Packages.props" />
   </Folder>
+  <Folder Name="/vl-pad-info-csharp/">
+    <Project Path="vl-pad-info-csharp/src/VL.PadInfo.csproj" />
+  </Folder>
   <Folder Name="/vl-stride-csharp-shader/">
     <File Path="vl-stride-csharp-shader/README.md" />
     <Project Path="vl-stride-csharp-shader/src/VL.DynamicShader.csproj" />
