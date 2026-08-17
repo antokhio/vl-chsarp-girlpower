@@ -1,0 +1,350 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Document xmlns:p="property" xmlns:r="reflection" Id="PuApo8nafNCMhovpoYr7iN" LanguageVersion="2025.7.4" Version="0.128">
+  <NugetDependency Id="DeJwUs985xcOF5ktpbHnkL" Location="VL.CoreLib" Version="2025.7.4" />
+  <Patch Id="DraexbxYHMbQZsGpwgJmz4">
+    <Canvas Id="PGeDNsBW0LrQHZm6dWawAL" DefaultCategory="Main" BordersChecked="false" CanvasType="FullCategory" />
+    <!--
+
+    ************************ Application ************************
+
+-->
+    <Node Name="Application" Bounds="100,100" Id="Ib8Q8u5zV87MpVfxMa7fJt">
+      <p:NodeReference>
+        <Choice Kind="ContainerDefinition" Name="Process" />
+        <CategoryReference Kind="Category" Name="Primitive" />
+      </p:NodeReference>
+      <Patch Id="E48DBcEdEbQNiSJafuODaK">
+        <Canvas Id="SWxx34ThK4iP06d2vKmzeh" CanvasType="Group">
+          <!--
+
+    ************************ TestNode ************************
+
+-->
+          <Node Name="TestNode" Bounds="379,221" Id="DwpWfPPp4cbNbLSfhYTBL6">
+            <p:NodeReference>
+              <Choice Kind="ClassDefinition" />
+            </p:NodeReference>
+            <Patch Id="HCYqqvW3mOAP5t92FbOvjr">
+              <Canvas Id="VSSINewZehUOA4mhOyf1PU" CanvasType="Group">
+                <Pad Id="TFN0zkhZxlIMaZ8XtxBNRx" SlotId="RetxgeIunUKNoAbrgTc7Ii" Bounds="546,350" />
+                <Pad Id="PCx2lbqSQt0PeaiQnELX36" SlotId="DFLNrUcynPbMcU0U9kM3xw" Bounds="698,320" />
+                <Pad Id="OMKrNbyX2XXPw8vWLjSxwh" Comment="TestFolder" Bounds="698,270,140,15" ShowValueBox="true" isIOBox="true" Value="">
+                  <p:TypeAnnotation LastCategoryFullName="IO" LastDependency="VL.CoreLib.vl">
+                    <Choice Kind="TypeFlag" Name="Path" />
+                  </p:TypeAnnotation>
+                </Pad>
+                <Pad Id="TJqtHBlcyUbOpETB5WUx5h" SlotId="Mu7jgL1RKd5LhLgy9Vmb7t" Bounds="907,350" />
+              </Canvas>
+              <Patch Id="LEjNYTiRWuTNXC2z5IuRzI" Name="Create" ParticipatingElements="Vf5SeKpvmBfN6aIrY2ITrv" />
+              <ProcessDefinition Id="IlxOJUgb6B3OM3KPppsHSO" HasStateOut="true">
+                <Fragment Id="SwzVdS8Wil2LaIbudcf93g" Patch="LEjNYTiRWuTNXC2z5IuRzI" Enabled="true" />
+                <Fragment Id="UWDaId00I6iQAVQx91kY6e" Patch="MrZdirRR2eHP8LZc15r0UM" Enabled="true" />
+              </ProcessDefinition>
+              <Patch Id="MrZdirRR2eHP8LZc15r0UM" Name="Update" />
+              <Slot Id="RetxgeIunUKNoAbrgTc7Ii" Name="TestPad">
+                <p:Attributes>
+                  <AttributeData>
+                    <p:TypeReference LastCategoryFullName="VL.Core.EditorAttributes" LastDependency="VL.CoreLib.vl">
+                      <Choice Kind="TypeFlag" Name="DefaultAttribute" />
+                    </p:TypeReference>
+                    <p:Arguments>
+                      <AttributeArgument>
+                        <p:Value SerializedValue="0.123">
+                          <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">
+                            <Choice Kind="TypeFlag" Name="String" />
+                          </p:TypeAnnotation>
+                        </p:Value>
+                      </AttributeArgument>
+                    </p:Arguments>
+                  </AttributeData>
+                  <AttributeData>
+                    <p:TypeReference LastCategoryFullName="VL.Core.EditorAttributes" LastDependency="VL.CoreLib.vl">
+                      <Choice Kind="TypeFlag" Name="MinAttribute" />
+                    </p:TypeReference>
+                    <p:Arguments>
+                      <AttributeArgument>
+                        <p:Value SerializedValue="0.001">
+                          <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">
+                            <Choice Kind="TypeFlag" Name="String" />
+                          </p:TypeAnnotation>
+                        </p:Value>
+                      </AttributeArgument>
+                    </p:Arguments>
+                  </AttributeData>
+                  <AttributeData>
+                    <p:TypeReference LastCategoryFullName="VL.Core.EditorAttributes" LastDependency="VL.CoreLib.vl">
+                      <Choice Kind="TypeFlag" Name="MaxAttribute" />
+                    </p:TypeReference>
+                    <p:Arguments>
+                      <AttributeArgument>
+                        <p:Value SerializedValue="1">
+                          <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">
+                            <Choice Kind="TypeFlag" Name="String" />
+                          </p:TypeAnnotation>
+                        </p:Value>
+                      </AttributeArgument>
+                    </p:Arguments>
+                  </AttributeData>
+                  <AttributeData>
+                    <p:TypeReference LastCategoryFullName="VL.Core.EditorAttributes" LastDependency="VL.CoreLib.vl">
+                      <Choice Kind="TypeFlag" Name="OrderAttribute" />
+                    </p:TypeReference>
+                    <p:Arguments>
+                      <AttributeArgument>
+                        <p:Value SerializedValue="0">
+                          <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">
+                            <Choice Kind="TypeFlag" Name="Integer32" />
+                          </p:TypeAnnotation>
+                        </p:Value>
+                      </AttributeArgument>
+                    </p:Arguments>
+                  </AttributeData>
+                  <AttributeData>
+                    <p:TypeReference LastCategoryFullName="System.EditorAttributes" LastDependency="VL.CoreLib.vl">
+                      <Choice Kind="TypeFlag" Name="WidgetTypeAttribute" />
+                    </p:TypeReference>
+                    <p:Arguments>
+                      <AttributeArgument>
+                        <p:Value SerializedValue="Slider">
+                          <p:TypeAnnotation LastCategoryFullName="System.EditorAttributes" LastDependency="VL.CoreLib.vl">
+                            <Choice Kind="TypeFlag" Name="WidgetType" />
+                          </p:TypeAnnotation>
+                        </p:Value>
+                      </AttributeArgument>
+                    </p:Arguments>
+                  </AttributeData>
+                  <AttributeData>
+                    <p:TypeReference LastCategoryFullName="VL.Core.EditorAttributes" LastDependency="VL.CoreLib.vl">
+                      <Choice Kind="TypeFlag" Name="CustomMetaDataAttribute" />
+                    </p:TypeReference>
+                    <p:Arguments>
+                      <AttributeArgument>
+                        <p:Value SerializedValue="isTest">
+                          <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">
+                            <Choice Kind="TypeFlag" Name="String" />
+                          </p:TypeAnnotation>
+                        </p:Value>
+                      </AttributeArgument>
+                      <AttributeArgument>
+                        <p:Value SerializedValue="true">
+                          <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">
+                            <Choice Kind="TypeFlag" Name="String" />
+                          </p:TypeAnnotation>
+                        </p:Value>
+                      </AttributeArgument>
+                    </p:Arguments>
+                  </AttributeData>
+                </p:Attributes>
+                <p:TypeAnnotation p:Type="TypeReference">
+                  <Choice Kind="TypeFlag" Name="Float32" />
+                </p:TypeAnnotation>
+              </Slot>
+              <Slot Id="DFLNrUcynPbMcU0U9kM3xw" Name="TestFolder">
+                <p:Attributes>
+                  <AttributeData>
+                    <p:TypeReference LastCategoryFullName="VL.Core.EditorAttributes" LastDependency="VL.CoreLib.vl">
+                      <Choice Kind="TypeFlag" Name="CustomMetaDataAttribute" />
+                    </p:TypeReference>
+                    <p:Arguments>
+                      <AttributeArgument>
+                        <p:Value SerializedValue="defaultPath">
+                          <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">
+                            <Choice Kind="TypeFlag" Name="String" />
+                          </p:TypeAnnotation>
+                        </p:Value>
+                      </AttributeArgument>
+                      <AttributeArgument>
+                        <p:Value SerializedValue="c:\vvvv">
+                          <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">
+                            <Choice Kind="TypeFlag" Name="String" />
+                          </p:TypeAnnotation>
+                        </p:Value>
+                      </AttributeArgument>
+                    </p:Arguments>
+                  </AttributeData>
+                  <AttributeData>
+                    <p:TypeReference LastCategoryFullName="VL.Core.EditorAttributes" LastDependency="VL.CoreLib.vl">
+                      <Choice Kind="TypeFlag" Name="OrderAttribute" />
+                    </p:TypeReference>
+                    <p:Arguments>
+                      <AttributeArgument>
+                        <p:Value SerializedValue="0">
+                          <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">
+                            <Choice Kind="TypeFlag" Name="Integer32" />
+                          </p:TypeAnnotation>
+                        </p:Value>
+                      </AttributeArgument>
+                    </p:Arguments>
+                  </AttributeData>
+                  <AttributeData>
+                    <p:TypeReference LastCategoryFullName="VL.Core.EditorAttributes" LastDependency="VL.CoreLib.vl">
+                      <Choice Kind="TypeFlag" Name="PathAttribute" />
+                    </p:TypeReference>
+                    <p:Arguments>
+                      <AttributeArgument>
+                        <p:Value SerializedValue="True">
+                          <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">
+                            <Choice Kind="TypeFlag" Name="Boolean" />
+                          </p:TypeAnnotation>
+                        </p:Value>
+                      </AttributeArgument>
+                    </p:Arguments>
+                  </AttributeData>
+                </p:Attributes>
+                <p:TypeAnnotation p:Type="TypeReference">
+                  <Choice Kind="TypeFlag" Name="Path" />
+                </p:TypeAnnotation>
+              </Slot>
+              <Link Id="Vf5SeKpvmBfN6aIrY2ITrv" Ids="OMKrNbyX2XXPw8vWLjSxwh,PCx2lbqSQt0PeaiQnELX36" />
+              <Slot Id="Mu7jgL1RKd5LhLgy9Vmb7t" Name="TestColor">
+                <p:Attributes>
+                  <AttributeData>
+                    <p:TypeReference LastCategoryFullName="VL.Core.EditorAttributes" LastDependency="VL.CoreLib.vl">
+                      <Choice Kind="TypeFlag" Name="DefaultAttribute" />
+                    </p:TypeReference>
+                    <p:Arguments>
+                      <AttributeArgument>
+                        <p:Value SerializedValue="1, 1, 1, 1">
+                          <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">
+                            <Choice Kind="TypeFlag" Name="String" />
+                          </p:TypeAnnotation>
+                        </p:Value>
+                      </AttributeArgument>
+                    </p:Arguments>
+                  </AttributeData>
+                </p:Attributes>
+                <p:TypeAnnotation p:Type="TypeReference">
+                  <Choice Kind="TypeFlag" Name="RGBA" />
+                </p:TypeAnnotation>
+              </Slot>
+            </Patch>
+          </Node>
+          <Node Bounds="699,360,60,19" Id="C1xWJ3wJLpbMehiCeCuKit">
+            <p:NodeReference LastCategoryFullName="Main" LastDependency="vl-pad-info.vl">
+              <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+              <Choice Kind="ProcessAppFlag" Name="TestNode" />
+            </p:NodeReference>
+            <Pin Id="Gzyf9EpxYbPOZIlDMoQBUa" Name="Node Context" Kind="InputPin" IsHidden="true" />
+            <Pin Id="Uapi3E5s4tRONWPqd4UU0A" Name="Update" Kind="ApplyPin" />
+            <Pin Id="QIDfbU7mbjlM1tQ7qN4SeM" Name="Output" Kind="StateOutputPin" />
+          </Node>
+          <Pad Id="D9jPWOlBp6VPTNhZFnS7jI" Comment="" Bounds="501,730,287,230" ShowValueBox="true" isIOBox="true" Value="TestColor:&#xD;&#xA;  Value: A:1 R:1 G:1 B:1&#xD;&#xA;  Type: RGBA&#xD;&#xA;  Default: A:1 R:1 G:1 B:1&#xD;&#xA;  Min: null&#xD;&#xA;  Max: null&#xD;&#xA;  Order: null&#xD;&#xA;  Widget: null&#xD;&#xA;" />
+          <Node Bounds="499,690,55,19" Id="R1yllCrr0rxMXIY8o7AwAv">
+            <p:NodeReference LastCategoryFullName="System.Conversion" LastDependency="VL.CoreLib.vl">
+              <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+              <Choice Kind="OperationCallFlag" Name="ToString" />
+            </p:NodeReference>
+            <Pin Id="Cai2aLWpviZMx1HfDR3aLq" Name="Input" Kind="InputPin" />
+            <Pin Id="VvFF86KIR3LO9loOcXCUtf" Name="Result" Kind="OutputPin" />
+          </Node>
+          <Node Bounds="1053,440,70,19" Id="NPGtmdPc8H3Lo6wsVYjNHN">
+            <p:NodeReference LastCategoryFullName="PadInfo.PadInspector" LastDependency="VL.PadInfo.dll">
+              <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+              <Choice Kind="OperationCallFlag" Name="InspectPads" />
+            </p:NodeReference>
+            <Pin Id="DkVNMQRACbiMwdrTXNzNix" Name="Instance" Kind="InputPin" />
+            <Pin Id="BiRwdgjg3csM4qkntBJOiI" Name="Include System Generated" Kind="InputPin" />
+            <Pin Id="OSOBioQ3k3jPBuEJsPmOYX" Name="Result" Kind="OutputPin" />
+          </Node>
+          <Pad Id="PTzrTmG7uSlP6FhZbiMrWG" Comment="" Bounds="1055,540,645,468" ShowValueBox="true" isIOBox="true" Value="=== Pads of TestNode [Main] ===&#xD;&#xA;TestColor:&#xD;&#xA;  Value: A:1 R:1 G:1 B:1&#xD;&#xA;  Type: RGBA&#xD;&#xA;  Default: A:1 R:1 G:1 B:1&#xD;&#xA;  Min: null&#xD;&#xA;  Max: null&#xD;&#xA;  Order: null&#xD;&#xA;  Widget: null&#xD;&#xA;TestFolder:&#xD;&#xA;  Value: D:\VVVV\vl-chsarp-girlpower\vl-pad-info-csharp&#xD;&#xA;  Type: Path&#xD;&#xA;  Default: null&#xD;&#xA;  Min: null&#xD;&#xA;  Max: null&#xD;&#xA;  Order: 0&#xD;&#xA;  Widget: null&#xD;&#xA;  defaultPath: c:\vvvv&#xD;&#xA;TestPad:&#xD;&#xA;  Value: 0&#xD;&#xA;  Type: Float32&#xD;&#xA;  Default: 0.123&#xD;&#xA;  Min: 0.001&#xD;&#xA;  Max: 1&#xD;&#xA;  Order: 0&#xD;&#xA;  Widget: Slider&#xD;&#xA;  isTest: true&#xD;&#xA;" />
+          <Node Bounds="687,397,77,110" Id="O6JgcE41dzbPG8bYqF0wcL">
+            <p:NodeReference LastCategoryFullName="Primitive" LastDependency="Builtin">
+              <Choice Kind="StatefulRegion" Name="Region (Stateful)" Fixed="true" />
+              <CategoryReference Kind="Category" Name="Primitive" />
+              <Choice Kind="ProcessStatefulRegion" Name="Cache" />
+            </p:NodeReference>
+            <Pin Id="R7FU3EBvnojOUrW849Q34r" Name="Force" Kind="InputPin" />
+            <Pin Id="NHL34p2TMIBPuxSd6JwbrH" Name="Dispose Cached Outputs" Kind="InputPin" />
+            <Pin Id="Cj3PyoL7KqXM3hB2sCkwKT" Name="Has Changed" Kind="OutputPin" />
+            <Patch Id="JgeTxgDoPmoLYUsSWa3xIH" ManuallySortedPins="true">
+              <Patch Id="GULMtAMdvWkPemxKhCc5NE" Name="Create" ManuallySortedPins="true" />
+              <Patch Id="FREqBbBUwFCO6OcKi6PBad" Name="Then" ManuallySortedPins="true" />
+              <Node Bounds="699,420,53,19" Id="RbmzT3lm55aPOmnVIUCqRX">
+                <p:NodeReference LastCategoryFullName="PadInfo.PadInspector" LastDependency="VL.PadInfo.dll" OverloadStrategy="AllPinsThatAreNotCommon">
+                  <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                  <Choice Kind="OperationCallFlag" Name="GetPads" />
+                  <PinReference Kind="InputPin" Name="Instance">
+                    <p:DataTypeReference p:Type="TypeReference" LastCategoryFullName="System.Reflection" LastDependency="VL.CoreLib.vl">
+                      <Choice Kind="TypeFlag" Name="IVLObject" />
+                    </p:DataTypeReference>
+                  </PinReference>
+                </p:NodeReference>
+                <Pin Id="PZxdx7ncigQQIWt56M1dzH" Name="Instance" Kind="InputPin" />
+                <Pin Id="KLnkgLgF65TLdDSj339lgs" Name="Include System Generated" Kind="InputPin" DefaultValue="True" />
+                <Pin Id="O1xhUjiiF93O5oUs8Wprgh" Name="Result" Kind="OutputPin" />
+              </Node>
+              <Node Bounds="699,460,52,19" Id="L5tNRiB6woSOPlXkLRRmw0">
+                <p:NodeReference LastCategoryFullName="Collections.Interfaces.IReadOnlyList" LastDependency="VL.CoreLib.vl">
+                  <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                  <CategoryReference Kind="MutableInterfaceType" Name="IReadOnlyList" NeedsToBeDirectParent="true" />
+                  <Choice Kind="OperationCallFlag" Name="GetSlice" />
+                </p:NodeReference>
+                <Pin Id="R5LRls4uiOSNJTcXAzdFce" Name="Input" Kind="StateInputPin" />
+                <Pin Id="KtDNHFu8z9ZMEPaXQ5tZOd" Name="Default Value" Kind="InputPin" />
+                <Pin Id="IrsCpLK7kx3NeN9DJWmhAX" Name="Index" Kind="InputPin" />
+                <Pin Id="UQ54QHkM3BpO2A22KgQ6PF" Name="Result" Kind="OutputPin" />
+              </Node>
+            </Patch>
+            <ControlPoint Id="MbTOOhclYtEOvCVjEf0aAH" Bounds="701,403" Alignment="Top" />
+            <ControlPoint Id="GHMh9H65bpyP2ZAYWUunXJ" Bounds="701,501" Alignment="Bottom" />
+            <ControlPoint Id="NFj2nMORFGtLLeLQfJ5tZL" Bounds="749,403" Alignment="Top" />
+          </Node>
+          <Pad Id="OOTcevWzvZPPs6M73AbJid" Bounds="820,340,35,15" ShowValueBox="true" isIOBox="true" Value="2" />
+          <Node Bounds="872,710,79,86" Id="QMmceMC3cSWM2NvvkDBc2M">
+            <p:NodeReference LastCategoryFullName="Primitive" LastDependency="Builtin">
+              <Choice Kind="StatefulRegion" Name="Region (Stateful)" Fixed="true" />
+              <CategoryReference Kind="Category" Name="Primitive" />
+              <Choice Kind="ProcessStatefulRegion" Name="Cache" />
+            </p:NodeReference>
+            <Pin Id="RRuI8t8CSgsMEM5vx6CTrD" Name="Force" Kind="InputPin" />
+            <Pin Id="L2vw0jzzZj2MVVQJy17HO1" Name="Dispose Cached Outputs" Kind="InputPin" />
+            <Pin Id="NzfSkzQ0W5fOSL0FFv7wPk" Name="Has Changed" Kind="OutputPin" />
+            <Patch Id="KePSRY1yJIyM7Jet5Pjnzh" ManuallySortedPins="true">
+              <Patch Id="B9tbJeXWfAKMaXWPGqFHsK" Name="Create" ManuallySortedPins="true" />
+              <Patch Id="GyqK9mN2vD2NxoiXX3JX7Z" Name="Then" ManuallySortedPins="true" />
+              <Node Bounds="884,739,55,26" Id="FvozuOhVd2VLBIgFmqZp2y">
+                <p:NodeReference LastCategoryFullName="PadInfo.PadInfo" LastDependency="VL.PadInfo.dll">
+                  <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                  <FullNameCategoryReference ID="PadInfo.PadInfo" />
+                  <Choice Kind="OperationCallFlag" Name="SetValue" />
+                </p:NodeReference>
+                <Pin Id="JHfNzPRi2EaMh7CshPO7BV" Name="Input" Kind="StateInputPin" />
+                <Pin Id="IB4W2ClAXu0N0bMP3vi0Ke" Name="Instance" Kind="InputPin" />
+                <Pin Id="NAr9ewcxJH7Mucqox1WYEF" Name="Value" Kind="InputPin" />
+                <Pin Id="DzVcW56wdqvMc9Hc0YxAgl" Name="Output" Kind="OutputPin" IsHidden="true" />
+                <Pin Id="GEiKvAYHqS3O5jiecsFX0q" Name="Result" Kind="OutputPin" />
+              </Node>
+            </Patch>
+            <ControlPoint Id="LtcIkRozhYsOJBdlJzNc75" Bounds="936,716" Alignment="Top" />
+          </Node>
+          <Pad Id="Fs7ymTRN5XGMs06J0GbqcY" Comment="" Bounds="936,665,35,15" ShowValueBox="true" isIOBox="true" Value="0.19">
+            <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">
+              <Choice Kind="ImmutableTypeFlag" Name="Float32" />
+            </p:TypeAnnotation>
+          </Pad>
+        </Canvas>
+        <Patch Id="Si6Y0Nw1ZZgLQXrYXO3V1K" Name="Create" />
+        <Patch Id="QuMdfmlTxBPQC1TsoeU4so" Name="Update" />
+        <ProcessDefinition Id="Dh2AXN0Wi6DL5luHFB8z4I">
+          <Fragment Id="HyMlfxHyAiPOjD8GxEJ020" Patch="Si6Y0Nw1ZZgLQXrYXO3V1K" Enabled="true" />
+          <Fragment Id="DEasd153POtLz0j9EHC85Y" Patch="QuMdfmlTxBPQC1TsoeU4so" Enabled="true" />
+        </ProcessDefinition>
+        <Link Id="SEb7ArAcApbPv3bWFNuOPK" Ids="VvFF86KIR3LO9loOcXCUtf,D9jPWOlBp6VPTNhZFnS7jI" />
+        <Link Id="Kdr19oZ6w97Mh5UsB8cx1M" Ids="QIDfbU7mbjlM1tQ7qN4SeM,DkVNMQRACbiMwdrTXNzNix" />
+        <Link Id="NsiHH5qglYfLJ3aUY0W4Mq" Ids="OSOBioQ3k3jPBuEJsPmOYX,PTzrTmG7uSlP6FhZbiMrWG" />
+        <Link Id="GYfuXMijbfTObBTBNEZvFD" Ids="O1xhUjiiF93O5oUs8Wprgh,R5LRls4uiOSNJTcXAzdFce" />
+        <Link Id="EhvPstZJR1HLrD2HfYsWgt" Ids="QIDfbU7mbjlM1tQ7qN4SeM,MbTOOhclYtEOvCVjEf0aAH" />
+        <Link Id="BCRpA8GE9x6PUx17TCwgtR" Ids="MbTOOhclYtEOvCVjEf0aAH,PZxdx7ncigQQIWt56M1dzH" />
+        <Link Id="E9rs0A28fqfPsL15Mz4FWq" Ids="UQ54QHkM3BpO2A22KgQ6PF,GHMh9H65bpyP2ZAYWUunXJ" />
+        <Link Id="R59DLjBrPi0P8yFWud2WeC" Ids="GHMh9H65bpyP2ZAYWUunXJ,Cai2aLWpviZMx1HfDR3aLq" />
+        <Link Id="Ihd4XlpXeDbL0bH2JDQV24" Ids="NFj2nMORFGtLLeLQfJ5tZL,IrsCpLK7kx3NeN9DJWmhAX" />
+        <Link Id="DUNa5shBVVQMFVnsyr5WeC" Ids="OOTcevWzvZPPs6M73AbJid,NFj2nMORFGtLLeLQfJ5tZL" />
+        <Link Id="PV0feocuN4yNhtPle9hEg0" Ids="GHMh9H65bpyP2ZAYWUunXJ,JHfNzPRi2EaMh7CshPO7BV" />
+        <Link Id="NLJaYJ7YUlzPu7wEZTWSEY" Ids="QIDfbU7mbjlM1tQ7qN4SeM,IB4W2ClAXu0N0bMP3vi0Ke" />
+        <Link Id="MUA7U0dGXmZPa5xTJjfgZ7" Ids="Fs7ymTRN5XGMs06J0GbqcY,LtcIkRozhYsOJBdlJzNc75" />
+        <Link Id="Hyl2xGtFQgjPToPlNNUNNU" Ids="LtcIkRozhYsOJBdlJzNc75,NAr9ewcxJH7Mucqox1WYEF" />
+      </Patch>
+    </Node>
+  </Patch>
+  <PlatformDependency Id="Rtcy9QtddTOLDlhNjzFfZp" Location="./lib/Debug/net8.0/VL.PadInfo.dll" />
+</Document>
